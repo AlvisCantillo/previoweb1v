@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Online - Productos</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .filters {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .filters button {
+            margin: 0 10px;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .product {
+            display: inline-block;
+            width: 23%;
+            margin: 1%;
+            padding: 10px;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Listado de Productos</h1>
+        <div class="filters">
+            <button onclick="filterProducts('electronics')">Electrónica</button>
+            <button onclick="filterProducts('jewelery')">Joyería</button>
+            <button onclick="filterProducts("women's clothing")">Ropa de Mujer</button>
+            <button onclick="filterProducts('men\'s clothing')">Ropa de Hombre</button>
+            <button onclick="showAllProducts()">Todos</button>
+        </div>
+        <div id="productList"></div>
+    </div>
+
+    <script>
+        const products = [
+            // Incluye aquí los productos en formato JSON
+            { "id": 1, "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops", "price": 109.95, "description": "Your perfect pack for everyday use and walks in the forest.", "category": "men's clothing", "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg" },
+            { "id": 5, "title": "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet", "price": 695, "description": "Inspired by the mythical water dragon.", "category": "jewelery", "image": "https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg" },
+            { "id": 9, "title": "WD 2TB Elements Portable External Hard Drive - USB 3.0", "price": 64, "description": "USB 3.0 and USB 2.0 Compatibility.", "category": "electronics", "image": "https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg" },
+            { "id": 15, "title": "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats", "price": 56.99, "description": "Warm fleece detachable liner.", "category": "women's clothing", "image": "https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg" },
+            // Agrega aquí el resto de los productos
+        ];
+
+        function displayProducts(filteredProducts) {
+            const productList = document.getElementById('productList');
+            productList.innerHTML = '';
+            filteredProducts.forEach(product => {
+                const productDiv = document.createElement('div');
+                productDiv.className = 'product';
+                productDiv.innerHTML = `
+                    <img src="${product.image}" alt="${product.title}">
+                    <h3>${product.title}</h3>
+                    <p>Precio: $${product.price}</p>
+                    <p>${product.description}</p>
+                `;
+                productList.appendChild(productDiv);
+            });
+        }
+
+        function filterProducts(category) {
+            const filteredProducts = products.filter(product => product.category === category);
+            displayProducts(filteredProducts);
+        }
+
+        function showAllProducts() {
+            displayProducts(products);
+        }
+
+        // Muestra todos los productos al cargar la página
+        window.onload = showAllProducts;
+    </script>
+</body>
+</html>

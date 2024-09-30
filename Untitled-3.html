@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shop Online - Carrito</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin: 10px 0;
+            background-color: white;
+            border-radius: 5px;
+        }
+        .cart-total {
+            font-weight: bold;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Carrito de Compras</h1>
+        <div id="cartItems"></div>
+        <div class="cart-total" id="cartTotal"></div>
+        <div style="text-align: center;">
+            <button onclick="clearCart()">Vaciar Carrito</button>
+        </div>
+    </div>
+
+    <script>
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function displayCart() {
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            cartItems.innerHTML = '';
+            let total = 0;
+
+            cart.forEach(item => {
+                const cartDiv = document.createElement('div');
+                cartDiv.className = 'cart-item';
+                cartDiv.innerHTML = `<span>${item.title}</span><span>$${item.price}</span>`;
+                cartItems.appendChild(cartDiv);
+                total += item.price;
+            });
+
+            cartTotal.innerHTML = `Total: $${total.toFixed(2)}`;
+        }
+
+        function clearCart() {
+            cart = [];
+            localStorage.removeItem('cart');
+            displayCart();
+        }
+
+        // Muestra el carrito al cargar la página
+        window.onload = displayCart;
+    </script>
+</body>
+</html>
